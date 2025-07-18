@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  
+  <Target Name="CopyOutputs" AfterTargets="Build">
+    <Message Text="Copying output to Package folder" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\manifest.json" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\README.md" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
+  </Target>
+  <Target Name="ZipOutputs" AfterTargets="CopyOutputs">
+    <Message Text="Zipping package" />
+    <Delete Files="$(MSBuildProjectDirectory)\Package.zip" />
+    <ZipDirectory SourceDirectory="$(MSBuildProjectDirectory)\Package" DestinationFile="$(MSBuildProjectDirectory)\Package.zip" />
+  </Target>
+
+  <ItemGroup>
+    <Compile Remove="libs\**" />
+    <EmbeddedResource Remove="libs\**" />
+    <None Remove="libs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+
+    <PackageReference Include="R2API.Items" Version="1.0.*" />
+    <PackageReference Include="R2API.Language" Version="1.0.*" />
+
+    <PackageReference Include="UnityEngine.Modules" Version="2021.3.33" IncludeAssets="compile" />
+    <PackageReference Include="RiskOfRain2.GameLibs" Version="1.3.9-r.0" />
+    <PackageReference Include="MMHOOK.RoR2" Version="2025.6.3" NoWarn="NU1701" />
+  </ItemGroup>
+
+</Project>
