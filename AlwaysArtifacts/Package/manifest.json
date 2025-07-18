@@ -1,7 +1,7 @@
 ﻿{
 	"name": "AlwaysArtifacts",
-	"version_number": "1.0.2",
-	"website_url": "",
+	"version_number": "1.0.3",
+	"website_url": "https://github.com/oorzkws/R2Boilerplate",
 	"description": "Force-enable artifacts, even in Eclipse",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.9",
